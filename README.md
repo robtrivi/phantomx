@@ -58,6 +58,7 @@ Módulo singleton con funcionalidad central de la aplicación.
 
 **Componentes:**
 
+- `AppHeaderComponent`: Header reutilizable de la aplicación con navegación y controles de usuario
 - `LoadingSpinnerComponent`: Spinner global suscrito a LoadingService con async pipe
 - `ThemeToggleComponent`: Botón de alternado de tema con icono dinámico
 
@@ -65,6 +66,7 @@ Módulo singleton con funcionalidad central de la aplicación.
 
 - Variables SCSS: Colores, tipografía, espaciados y breakpoints
 - Mixins: Funciones reutilizables para responsive design y componentes
+- Componentes: Buttons, cards, forms, tables, badges, modals, pagination, statistics
 
 ## API Endpoints
 
@@ -74,12 +76,13 @@ Módulo singleton con funcionalidad central de la aplicación.
 
 **Transferencias:**
 
-- `GET /api/transferencias` - Lista con filtros y paginación
-- `POST /api/transferencias` - Crear transferencia
-- `PUT /api/transferencias/:id` - Actualizar transferencia
-- `DELETE /api/transferencias/:id` - Eliminar transferencia
+- `GET /api/transfers` - Lista con filtros y paginación (query params: sucursalId, bancoId, estado, fechaDesde, fechaHasta, usuario, sucursal, servicioFacturado, page, limit)
+- `POST /api/transfers` - Crear transferencia
+- `PUT /api/transfers/:id` - Actualizar transferencia
+- `DELETE /api/transfers/:id` - Eliminar transferencia
 
 **Catálogos:**
 
 - `GET /api/sucursales` - Lista de sucursales
+- `GET /api/sucursales/:id/opciones` - Opciones de menú para una sucursal específica
 - `GET /api/bancos` - Lista de bancos
