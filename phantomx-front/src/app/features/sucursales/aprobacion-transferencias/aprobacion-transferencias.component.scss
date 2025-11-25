@@ -1,0 +1,19 @@
+@import "../../../shared/styles/index";
+
+.aprobacion-transferencias {
+  padding: $spacing-lg 0;
+
+  .filtros-card,
+  .tabla-card {
+    @extend .card-elevated;
+  }
+
+  .filtros-card {
+    form {
+      .row {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+  }
+}

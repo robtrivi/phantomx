@@ -1,0 +1,30 @@
+<header class="header-principal">
+  <div class="container-fluid">
+    <div class="row align-items-center">
+      <div class="col-4">
+        <div class="logo-phantomx">
+          <h3>PhantomX</h3>
+        </div>
+      </div>
+      <div class="col-8 text-right">
+        <div class="header-right">
+          <app-theme-toggle [style]="'icon'" [showLabel]="false" [size]="'medium'"></app-theme-toggle>
+          <div class="logo-veris mx-3">
+            <span class="veris-text">VERIS</span>
+          </div>
+          <div class="user-menu dropdown">
+            <button class="btn btn-link dropdown-toggle user-btn" type="button" id="userMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-user-circle"></i>
+              <span class="user-name">{{ nombreUsuario }}</span>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userMenuButton">
+              <a class="dropdown-item" [routerLink]="['/sucursales']" *ngIf="mostrarMenuSucursales"><i class="fas fa-store mr-2"></i>Sucursales</a>
+              <div class="dropdown-divider" *ngIf="mostrarMenuSucursales"></div>
+              <a class="dropdown-item" (click)="logout()"><i class="fas fa-sign-out-alt mr-2"></i>Cerrar Sesión</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

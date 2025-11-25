@@ -1,0 +1,7 @@
+<app-loading-spinner></app-loading-spinner>
+<app-header 
+  *ngIf="mostrarHeader" 
+  [nombreUsuario]="nombreUsuario" 
+  (onLogout)="logout()">
+</app-header>
+<router-outlet></router-outlet>

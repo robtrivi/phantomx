@@ -1,0 +1,184 @@
+@import '../../../shared/styles/variables';
+@import '../../../shared/styles/mixins';
+
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #60a5fa 100%);
+  padding: $spacing-lg;
+  position: relative;
+}
+
+.theme-toggle-container {
+  position: absolute;
+  top: $spacing-lg;
+  right: $spacing-lg;
+  z-index: 10;
+
+  ::ng-deep .theme-toggle .btn-icon-only {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+  }
+}
+
+.login-card {
+  @include card-base;
+  padding: $spacing-xl + 10px;
+  width: 100%;
+  max-width: 450px;
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: $spacing-xl;
+}
+
+.logo-container {
+  margin-bottom: $spacing-lg;
+}
+
+.logo-text {
+  font-size: 36px;
+  font-weight: 700;
+  color: $color-primary;
+  margin: 0;
+}
+
+.welcome-text {
+  font-size: 24px;
+  font-weight: 600;
+  color: $light-text;
+  margin-bottom: $spacing-xs;
+}
+
+.subtitle-text {
+  font-size: 16px;
+  color: $light-text-muted;
+  margin: 0;
+}
+
+.login-form {
+  .form-group {
+    margin-bottom: $spacing-lg;
+
+    label {
+      font-weight: 500;
+      color: $light-text;
+      margin-bottom: 8px;
+    }
+
+    .form-control {
+      @include form-control-base;
+      height: 45px;
+    }
+  }
+
+  .btn-login {
+    @include button-base;
+    height: 45px;
+    font-size: 16px;
+    margin-top: $spacing-sm;
+    background-color: $color-primary;
+    border-color: $color-primary;
+
+    &:hover:not(:disabled) {
+      background-color: $color-primary-dark;
+      border-color: $color-primary-dark;
+      box-shadow: 0 4px 12px rgba($color-primary, 0.4);
+    }
+  }
+
+  .alert {
+    margin-bottom: $spacing-lg;
+    border-radius: $border-radius-md;
+  }
+}
+
+@media (max-width: 576px) {
+  .login-card {
+    padding: $spacing-xl $spacing-lg;
+  }
+
+  .logo-text {
+    font-size: 28px;
+  }
+
+  .welcome-text {
+    font-size: 20px;
+  }
+  
+  .theme-toggle-container {
+    top: $spacing-md;
+    right: $spacing-md;
+  }
+}
+
+:host-context(.theme-dark) {
+  .login-container {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+  }
+  
+  .theme-toggle-container {
+    ::ng-deep .btn-icon-only {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      
+      &:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+    }
+  }
+  
+  .login-card {
+    background: $dark-card-bg;
+    box-shadow: $shadow-lg;
+  }
+
+  .welcome-text {
+    color: $dark-text;
+  }
+
+  .subtitle-text {
+    color: $dark-text-muted;
+  }
+
+  .login-form {
+    .form-group {
+      label {
+        color: $dark-text;
+      }
+
+      .form-control {
+        background-color: $dark-bg;
+        border-color: $dark-border;
+        color: $dark-text;
+
+        &:focus {
+          background-color: $dark-bg;
+          border-color: $color-primary;
+          color: $dark-text;
+        }
+
+        &::placeholder {
+          color: $dark-text-muted;
+        }
+      }
+
+      .invalid-feedback {
+        color: #fc8181;
+      }
+    }
+
+    .alert-danger {
+      background-color: #742a2a;
+      border-color: #742a2a;
+      color: #feb2b2;
+    }
+  }
+}

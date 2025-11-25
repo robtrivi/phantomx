@@ -1,0 +1,76 @@
+@import "./variables";
+
+.table-styled {
+  margin-bottom: 0;
+
+  thead {
+    background-color: $light-bg;
+
+    th {
+      border-bottom: 2px solid $light-border;
+      font-weight: 600;
+      color: #495057;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+  }
+
+  tbody {
+    tr {
+      transition: all $transition-fast;
+
+      &:hover {
+        background-color: $light-bg;
+      }
+
+      td {
+        vertical-align: middle;
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .table-styled {
+    font-size: 12px;
+
+    thead th,
+    tbody td {
+      padding: 8px 5px;
+    }
+  }
+
+  .table-actions {
+    .btn {
+      padding: 5px 8px;
+      font-size: 12px;
+    }
+  }
+}
+
+:host-context(.theme-dark) {
+  .table-styled {
+    color: $dark-text;
+
+    thead {
+      background-color: $dark-bg;
+
+      th {
+        border-bottom-color: $dark-border;
+        color: $dark-text;
+      }
+    }
+
+    tbody tr {
+      &:hover {
+        background-color: $dark-bg;
+      }
+
+      td {
+        border-top-color: $dark-border;
+        color: $dark-text;
+      }
+    }
+  }
+}

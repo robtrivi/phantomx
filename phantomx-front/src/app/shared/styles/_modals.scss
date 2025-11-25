@@ -1,0 +1,31 @@
+@import "./variables";
+
+.modal-content {
+  border-radius: $border-radius-md;
+  border: none;
+
+  .modal-header {
+    background-color: $color-primary;
+    color: white;
+    border-top-left-radius: $border-radius-md;
+    border-top-right-radius: $border-radius-md;
+
+    .close {
+      color: white;
+      opacity: 1;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+
+  .modal-body {
+    padding: 25px;
+  }
+
+  .modal-footer {
+    border-top: 1px solid $light-border;
+    padding: $spacing-md 25px;
+  }
+}

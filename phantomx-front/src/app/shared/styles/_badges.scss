@@ -1,0 +1,33 @@
+@import "./variables";
+
+.badge {
+  padding: $spacing-xs $spacing-sm;
+  font-size: 12px;
+  font-weight: 500;
+
+  &.badge-warning {
+    background-color: $color-warning;
+    color: #000;
+  }
+
+  &.badge-primary {
+    background-color: $color-primary;
+    color: white;
+  }
+
+  &.badge-success {
+    background-color: $color-success;
+  }
+
+  &.badge-danger {
+    background-color: $color-danger;
+  }
+
+  &.badge-info {
+    background-color: $color-info;
+  }
+
+  &.badge-secondary {
+    background-color: $color-secondary;
+  }
+}

@@ -1,0 +1,37 @@
+<div [ngClass]="containerClasses">
+  <div class="custom-control custom-switch" *ngIf="style === 'switch'">
+    <input
+      type="checkbox"
+      class="custom-control-input"
+      [id]="'themeSwitch-' + _uniqueId"
+      [checked]="isDarkTheme"
+      (change)="toggleTheme()"
+    />
+    <label class="custom-control-label" [for]="'themeSwitch-' + _uniqueId">
+      <i class="fas" [ngClass]="iconClass"></i>
+      <span *ngIf="showLabel" class="theme-label">{{ label }}</span>
+    </label>
+  </div>
+
+  <button
+    *ngIf="style === 'button'"
+    type="button"
+    class="btn btn-theme-toggle"
+    (click)="toggleTheme()"
+    [attr.aria-label]="'Cambiar a tema ' + (isDarkTheme ? 'claro' : 'oscuro')"
+  >
+    <i class="fas" [ngClass]="iconClass"></i>
+    <span *ngIf="showLabel" class="theme-label">{{ label }}</span>
+  </button>
+
+  <button
+    *ngIf="style === 'icon'"
+    type="button"
+    class="btn btn-icon-only"
+    (click)="toggleTheme()"
+    [attr.aria-label]="'Cambiar a tema ' + (isDarkTheme ? 'claro' : 'oscuro')"
+    [title]="'Tema ' + label"
+  >
+    <i class="fas" [ngClass]="iconClass"></i>
+  </button>
+</div>

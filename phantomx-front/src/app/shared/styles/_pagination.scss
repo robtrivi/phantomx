@@ -1,0 +1,289 @@
+@import "./variables";
+
+.pagination-container {
+  margin-top: 25px;
+  padding: $spacing-lg 25px;
+  background: linear-gradient(
+    135deg,
+    rgba(239, 246, 255, 0.95) 0%,
+    rgba(219, 234, 254, 0.95) 100%
+  );
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-md;
+
+  .pagination-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: $spacing-lg;
+  }
+
+  .pagination-info {
+    display: flex;
+    align-items: center;
+    color: $color-secondary;
+    font-size: 14px;
+
+    i {
+      color: $color-primary;
+    }
+
+    strong {
+      color: #374151;
+      font-weight: 600;
+    }
+  }
+
+  .pagination-controls {
+    display: flex;
+    align-items: center;
+    gap: $spacing-lg;
+    flex-wrap: wrap;
+  }
+
+  .page-size-selector {
+    display: flex;
+    align-items: center;
+    background: white;
+    padding: 8px 12px;
+    border-radius: $border-radius-md;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+    label {
+      margin: 0;
+      color: $color-secondary;
+      font-size: 14px;
+      font-weight: 500;
+      white-space: nowrap;
+
+      i {
+        color: $color-primary;
+      }
+    }
+
+    select {
+      border: 2px solid #e5e7eb;
+      border-radius: $border-radius-sm + 2px;
+      padding: 6px 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all $transition-fast;
+      background-color: white;
+      width: 80px;
+
+      &:hover {
+        border-color: $color-primary;
+      }
+
+      &:focus {
+        border-color: $color-primary;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        outline: none;
+      }
+    }
+  }
+
+  .pagination-nav {
+    .pagination {
+      margin: 0;
+      display: flex;
+      gap: 6px;
+      align-items: center;
+
+      .page-item {
+        margin: 0;
+
+        .page-link {
+          border-radius: $border-radius-md;
+          padding: $spacing-sm 14px;
+          font-weight: 500;
+          border: 2px solid #e5e7eb;
+          background-color: white;
+          color: #374151;
+          transition: all $transition-fast ease;
+          cursor: pointer;
+          min-width: 44px;
+          text-align: center;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          i {
+            font-size: 14px;
+          }
+
+          &:hover:not(.disabled) {
+            background-color: $color-primary;
+            border-color: $color-primary;
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+          }
+
+          &:focus {
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+            outline: none;
+          }
+
+          &.disabled {
+            background-color: #f9fafb;
+            border-color: #e5e7eb;
+            color: #d1d5db;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+
+            &:hover {
+              background-color: #f9fafb;
+              border-color: #e5e7eb;
+              color: #d1d5db;
+              transform: none;
+            }
+          }
+        }
+
+        &.active .page-link {
+          background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+          border-color: #2563eb;
+          color: white;
+          box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+          font-weight: 600;
+          cursor: default;
+          transform: none;
+          min-width: 80px;
+
+          &:hover {
+            transform: none;
+          }
+        }
+
+        &.disabled .page-link {
+          background-color: #f9fafb;
+          border-color: #e5e7eb;
+          color: #d1d5db;
+          opacity: 0.6;
+          cursor: not-allowed;
+          transform: none;
+          box-shadow: none;
+
+          &:hover {
+            background-color: #f9fafb;
+            border-color: #e5e7eb;
+            color: #d1d5db;
+            transform: none;
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .pagination-wrapper {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .pagination-info {
+      justify-content: center;
+      text-align: center;
+    }
+
+    .pagination-controls {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .page-size-selector,
+    .pagination-nav {
+      justify-content: center;
+    }
+  }
+}
+
+:host-context(.theme-dark) {
+  .pagination-container {
+    background: linear-gradient(
+      135deg,
+      rgba(12, 74, 110, 0.95) 0%,
+      rgba(7, 89, 133, 0.95) 100%
+    );
+    box-shadow: $shadow-md;
+
+    .pagination-info {
+      color: #cbd5e0;
+
+      i {
+        color: #60a5fa;
+      }
+
+      strong {
+        color: $dark-text;
+      }
+    }
+
+    .page-size-selector {
+      background: $dark-card-bg;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+
+      label {
+        color: #cbd5e0;
+
+        i {
+          color: #60a5fa;
+        }
+      }
+
+      select {
+        background-color: $dark-bg;
+        border-color: $dark-border;
+        color: $dark-text;
+
+        &:hover {
+          border-color: #60a5fa;
+        }
+
+        &:focus {
+          border-color: #60a5fa;
+          box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
+        }
+      }
+    }
+
+    .pagination-nav {
+      .pagination {
+        .page-item {
+          .page-link {
+            background-color: $dark-card-bg;
+            border-color: $dark-border;
+            color: $dark-text;
+
+            &:hover:not(.disabled) {
+              background-color: $color-primary;
+              border-color: $color-primary;
+              color: white;
+            }
+
+            &.disabled {
+              background-color: $dark-bg;
+              border-color: $dark-border;
+              color: $dark-border;
+            }
+          }
+
+          &.active .page-link {
+            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+            border-color: #2563eb;
+            color: white;
+          }
+
+          &.disabled .page-link {
+            background-color: $dark-bg;
+            border-color: $dark-border;
+            color: $dark-border;
+          }
+        }
+      }
+    }
+  }
+}

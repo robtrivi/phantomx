@@ -1,0 +1,56 @@
+@import "./variables";
+
+.form-label,
+label {
+  font-weight: 500;
+  color: $light-text;
+  margin-bottom: $spacing-xs;
+  font-size: 14px;
+}
+
+.form-control,
+.btn {
+  border-radius: $border-radius-sm + 2px;
+}
+
+.form-group-hover {
+  position: relative;
+
+  label {
+    cursor: pointer;
+    user-select: none;
+  }
+
+  &:hover {
+    .form-control,
+    input[type="text"],
+    input.flatpickr-input,
+    input.flatpickr-mobile,
+    .flatpickr-input.form-control.input {
+      border-color: $color-primary !important;
+    }
+
+    .select2-container--bootstrap4 .select2-selection {
+      border-color: $color-primary !important;
+    }
+  }
+
+  .form-control,
+  input[type="text"],
+  input.flatpickr-input,
+  input.flatpickr-mobile {
+    transition: border-color 0.15s ease-in-out;
+  }
+}
+
+input.flatpickr-input {
+  &.form-control {
+    cursor: pointer;
+  }
+}
+
+:host-context(.theme-dark) {
+  label {
+    color: $dark-text;
+  }
+}

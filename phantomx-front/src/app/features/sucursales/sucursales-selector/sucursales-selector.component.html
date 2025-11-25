@@ -1,0 +1,21 @@
+<div class="sucursales-container animate__animated animate__fadeIn">
+  <div class="sucursales-header">
+    <h2 class="text-center mb-4">Seleccione una Sucursal</h2>
+  </div>
+
+  <div *ngIf="cargando" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="sr-only">Cargando...</span>
+    </div>
+    <p class="mt-3">Cargando sucursales...</p>
+  </div>
+
+  <div class="sucursales-grid" *ngIf="!cargando">
+    <div class="sucursal-card" *ngFor="let sucursal of sucursales" (click)="seleccionarSucursal(sucursal)">
+      <div class="card-icon">
+        <i class="fas fa-store-alt"></i>
+      </div>
+      <h5 class="card-title">{{ sucursal.nombre }}</h5>
+    </div>
+  </div>
+</div>

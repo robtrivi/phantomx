@@ -1,0 +1,40 @@
+@mixin card-base {
+  background: white;
+  border-radius: $border-radius-md;
+  box-shadow: $shadow-md;
+  padding: $spacing-lg;
+  transition: all $transition-normal;
+}
+
+@mixin button-base {
+  border-radius: $border-radius-md;
+  padding: 10px 20px;
+  font-weight: 600;
+  transition: all $transition-normal;
+  cursor: pointer;
+  border: none;
+  
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+@mixin form-control-base {
+  border-radius: $border-radius-md;
+  border: 1px solid $light-border;
+  padding: 10px 15px;
+  font-size: 15px;
+  transition: all $transition-fast;
+
+  &:focus {
+    border-color: $color-primary;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+    outline: none;
+  }
+}

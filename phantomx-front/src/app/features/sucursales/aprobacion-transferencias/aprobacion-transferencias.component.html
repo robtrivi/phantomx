@@ -1,0 +1,621 @@
+<div class="aprobacion-transferencias animate__animated animate__fadeIn">
+  <div class="card filtros-card mb-4">
+    <div class="card-body">
+      <form [formGroup]="filtrosForm">
+        <div class="row">
+          <div class="col-lg-3 col-md-6 mb-3">
+            <div class="form-group-hover">
+              <label for="sucursalSelectFiltro" class="form-label"
+                >Sucursal</label
+              >
+              <select
+                id="sucursalSelectFiltro"
+                class="form-control select2-filtro"
+                formControlName="sucursalId"
+              >
+                <option value="">Todas las sucursales</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-lg-2 col-md-6 mb-3">
+            <div class="form-group-hover">
+              <label for="bancoSelectFiltro" class="form-label">Banco</label>
+              <select
+                id="bancoSelectFiltro"
+                class="form-control select2-filtro"
+                formControlName="bancoId"
+              >
+                <option value="">Todos los bancos</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-lg-2 col-md-6 mb-3">
+            <div class="form-group-hover">
+              <label for="fechaDesde" class="form-label">Fecha Desde</label>
+              <input
+                id="fechaDesde"
+                class="form-control"
+                mwlFlatpickr
+                formControlName="fechaDesde"
+                [convertModelValue]="true"
+                [altInput]="true"
+                [altFormat]="'d/m/Y'"
+                [dateFormat]="'Y-m-d'"
+                [locale]="esLocale"
+                placeholder="Seleccione fecha"
+              />
+            </div>
+          </div>
+
+          <div class="col-lg-2 col-md-6 mb-3">
+            <div class="form-group-hover">
+              <label for="fechaHasta" class="form-label">Fecha Hasta</label>
+              <input
+                id="fechaHasta"
+                class="form-control"
+                mwlFlatpickr
+                formControlName="fechaHasta"
+                [convertModelValue]="true"
+                [altInput]="true"
+                [altFormat]="'d/m/Y'"
+                [dateFormat]="'Y-m-d'"
+                [locale]="esLocale"
+                placeholder="Seleccione fecha"
+              />
+            </div>
+          </div>
+
+          <div class="col-lg-2 col-md-6 mb-3">
+            <div class="form-group-hover">
+              <label for="estadoSelectFiltro" class="form-label">Estado</label>
+              <select
+                id="estadoSelectFiltro"
+                class="form-control select2-filtro"
+                formControlName="estado"
+              >
+                <option value="">Todos</option>
+                <option value="PENDIENTE">Pendiente</option>
+                <option value="APROBADA">Aprobada</option>
+                <option value="RECHAZADA">Rechazada</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <div class="filtros-botones text-right">
+              <button type="button" class="btn btn-primary" (click)="buscar()">
+                <i class="fas fa-search"></i> Buscar
+              </button>
+              <button
+                type="button"
+                class="btn btn-outline-secondary"
+                (click)="limpiarFiltros()"
+              >
+                <i class="fas fa-broom"></i> Limpiar
+              </button>
+              <button
+                type="button"
+                class="btn btn-success"
+                (click)="abrirModalIngresar()"
+              >
+                <i class="fas fa-plus-circle"></i> Ingresar
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                (click)="descargar()"
+              >
+                <i class="fas fa-file-download"></i> Descargar
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="card mb-4" *ngIf="transferencias.length > 0">
+    <div class="card-header estadisticas-header">
+      <i class="fas fa-chart-bar mr-2"></i>Estadísticas de Transferencias
+    </div>
+    <div class="card-body">
+      <div class="row text-center">
+        <div class="col-md-2">
+          <div class="estadistica-item">
+            <h4 class="text-primary">{{ obtenerEstadisticas().total }}</h4>
+            <small class="text-muted">Total</small>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="estadistica-item">
+            <h4 class="text-warning">{{ obtenerEstadisticas().pendientes }}</h4>
+            <small class="text-muted">Pendientes</small>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="estadistica-item">
+            <h4 class="text-success">{{ obtenerEstadisticas().aprobadas }}</h4>
+            <small class="text-muted">Aprobadas</small>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="estadistica-item">
+            <h4 class="text-danger">{{ obtenerEstadisticas().rechazadas }}</h4>
+            <small class="text-muted">Rechazadas</small>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="estadistica-item">
+            <h5 class="text-info">
+              {{
+                obtenerEstadisticas().montoTotal
+                  | currency : "$" : "symbol" : "1.2-2"
+              }}
+            </h5>
+            <small class="text-muted">Monto Total</small>
+            <div class="mt-2">
+              <small
+                ><strong>Promedio:</strong>
+                {{
+                  obtenerEstadisticas().montoPromedio
+                    | currency : "$" : "symbol" : "1.2-2"
+                }}</small
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card tabla-card">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>N° Papeleta</th>
+              <th>Usuario</th>
+              <th>Sucursal</th>
+              <th>Banco Emisor</th>
+              <th>Cuenta Bancaria</th>
+              <th>Valor Total</th>
+              <th>Fecha Depósito</th>
+              <th>Días Transcurridos</th>
+              <th>Servicio</th>
+              <th>Observación</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let transferencia of transferencias">
+              <td>{{ transferencia.numeroPapeleta }}</td>
+              <td>{{ transferencia.usuario || "-" }}</td>
+              <td>{{ transferencia.sucursal }}</td>
+              <td>{{ transferencia.bancoEmisor }}</td>
+              <td>{{ transferencia.cuentaBancaria }}</td>
+              <td>
+                {{
+                  transferencia.valorTotalEfectivo
+                    | currency : "$" : "symbol" : "1.2-2"
+                }}
+              </td>
+              <td>
+                <div>{{ formatearFecha(transferencia.fechaDeposito) }}</div>
+                <small class="text-muted">{{
+                  formatearFecha(transferencia.fechaDeposito, "dddd")
+                }}</small>
+              </td>
+              <td>
+                <span class="badge badge-info"
+                  >{{
+                    diasDesdeDeposito(transferencia.fechaDeposito)
+                  }}
+                  días</span
+                >
+              </td>
+              <td>{{ transferencia.servicioFacturado || "-" }}</td>
+              <td>{{ transferencia.observacion || "-" }}</td>
+              <td>
+                <span
+                  class="badge"
+                  [ngClass]="obtenerClaseEstado(transferencia.estado)"
+                >
+                  {{ transferencia.estado }}
+                </span>
+              </td>
+              <td>
+                <button
+                  class="btn btn-sm btn-info mr-1"
+                  (click)="abrirModalEditar(transferencia)"
+                  title="Editar"
+                >
+                  <i class="fas fa-pen"></i>
+                </button>
+                <button
+                  class="btn btn-sm btn-danger"
+                  (click)="confirmarEliminar(transferencia)"
+                  title="Eliminar"
+                >
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="transferencias.length === 0">
+              <td colspan="12" class="text-center text-muted">
+                No se encontraron transferencias
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="pagination-container" *ngIf="totalRecords > 0">
+        <div class="pagination-wrapper">
+          <div class="pagination-info">
+            <i class="fas fa-info-circle mr-2"></i>
+            <span>
+              Mostrando
+              <strong>{{ (currentPage - 1) * pageSize + 1 }}</strong> a
+              <strong>{{
+                Math.min(currentPage * pageSize, totalRecords)
+              }}</strong>
+              de <strong>{{ totalRecords }}</strong> registros
+            </span>
+          </div>
+
+          <div class="pagination-controls">
+            <div class="page-size-selector">
+              <label class="mb-0 mr-2"
+                ><i class="fas fa-th-list mr-1"></i>Mostrar:</label
+              >
+              <select
+                class="form-control form-control-sm"
+                [(ngModel)]="pageSize"
+                (change)="onPageSizeChange()"
+                [ngModelOptions]="{ standalone: true }"
+              >
+                <option [value]="5">5</option>
+                <option [value]="10">10</option>
+                <option [value]="25">25</option>
+                <option [value]="50">50</option>
+                <option [value]="100">100</option>
+              </select>
+            </div>
+
+            <nav
+              aria-label="Paginación"
+              class="pagination-nav"
+              *ngIf="totalPages > 1"
+            >
+              <ul class="pagination mb-0">
+                <li class="page-item" [class.disabled]="currentPage === 1">
+                  <a
+                    class="page-link"
+                    (click)="cambiarPagina(1)"
+                    [class.disabled]="currentPage === 1"
+                  >
+                    <i class="fas fa-fast-backward"></i>
+                  </a>
+                </li>
+                <li class="page-item" [class.disabled]="currentPage === 1">
+                  <a
+                    class="page-link"
+                    (click)="cambiarPagina(currentPage - 1)"
+                    [class.disabled]="currentPage === 1"
+                  >
+                    <i class="fas fa-chevron-left"></i>
+                  </a>
+                </li>
+                <li class="page-item active">
+                  <span class="page-link"
+                    >{{ currentPage }} / {{ totalPages }}</span
+                  >
+                </li>
+                <li
+                  class="page-item"
+                  [class.disabled]="currentPage === totalPages"
+                >
+                  <a
+                    class="page-link"
+                    (click)="cambiarPagina(currentPage + 1)"
+                    [class.disabled]="currentPage === totalPages"
+                  >
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                </li>
+                <li
+                  class="page-item"
+                  [class.disabled]="currentPage === totalPages"
+                >
+                  <a
+                    class="page-link"
+                    (click)="cambiarPagina(totalPages)"
+                    [class.disabled]="currentPage === totalPages"
+                  >
+                    <i class="fas fa-fast-forward"></i>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="transferenciaModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="transferenciaModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content animate__animated animate__fadeInDown">
+      <div class="modal-header">
+        <h5 class="modal-title" id="transferenciaModalLabel">
+          {{
+            modoEdicion
+              ? "Editar Transferencia"
+              : "Ingresar Nueva Transferencia"
+          }}
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="transferenciaForm">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="numeroPapeleta">N° Papeleta *</label>
+              <input
+                type="text"
+                class="form-control"
+                id="numeroPapeleta"
+                formControlName="numeroPapeleta"
+                placeholder="Ingrese número de papeleta"
+              />
+              <div
+                class="invalid-feedback"
+                *ngIf="
+                  transferenciaForm.get('numeroPapeleta')?.invalid &&
+                  transferenciaForm.get('numeroPapeleta')?.touched
+                "
+              >
+                Campo requerido
+              </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label for="sucursalSelectModal">Sucursal *</label>
+              <select
+                id="sucursalSelectModal"
+                class="form-control"
+                formControlName="sucursalId"
+              >
+                <option value="">Seleccione una sucursal</option>
+              </select>
+              <div
+                class="invalid-feedback"
+                *ngIf="
+                  transferenciaForm.get('sucursalId')?.invalid &&
+                  transferenciaForm.get('sucursalId')?.touched
+                "
+              >
+                Campo requerido
+              </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label for="bancoSelectModal">Banco *</label>
+              <select
+                id="bancoSelectModal"
+                class="form-control"
+                formControlName="bancoId"
+              >
+                <option value="">Seleccione un banco</option>
+              </select>
+              <div
+                class="invalid-feedback"
+                *ngIf="
+                  transferenciaForm.get('bancoId')?.invalid &&
+                  transferenciaForm.get('bancoId')?.touched
+                "
+              >
+                Campo requerido
+              </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label for="cuentaBancaria">Cuenta Bancaria *</label>
+              <input
+                type="text"
+                class="form-control"
+                id="cuentaBancaria"
+                formControlName="cuentaBancaria"
+                placeholder="Número de cuenta"
+              />
+              <div
+                class="invalid-feedback"
+                *ngIf="
+                  transferenciaForm.get('cuentaBancaria')?.invalid &&
+                  transferenciaForm.get('cuentaBancaria')?.touched
+                "
+              >
+                Campo requerido
+              </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label for="fechaDeposito">Fecha Depósito *</label>
+              <input
+                id="fechaDeposito"
+                class="form-control"
+                mwlFlatpickr
+                formControlName="fechaDeposito"
+                [convertModelValue]="true"
+                [altInput]="true"
+                [altFormat]="'d/m/Y'"
+                [dateFormat]="'Y-m-d'"
+                [locale]="esLocale"
+                placeholder="Seleccione fecha"
+              />
+              <div
+                class="invalid-feedback"
+                *ngIf="
+                  transferenciaForm.get('fechaDeposito')?.invalid &&
+                  transferenciaForm.get('fechaDeposito')?.touched
+                "
+              >
+                Campo requerido
+              </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label for="valorTotalEfectivo">Valor Total Efectivo *</label>
+              <input
+                type="number"
+                class="form-control"
+                id="valorTotalEfectivo"
+                formControlName="valorTotalEfectivo"
+                placeholder="0.00"
+                step="0.01"
+              />
+              <div
+                class="invalid-feedback"
+                *ngIf="
+                  transferenciaForm.get('valorTotalEfectivo')?.invalid &&
+                  transferenciaForm.get('valorTotalEfectivo')?.touched
+                "
+              >
+                Campo requerido
+              </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label for="usuario">Usuario</label>
+              <input
+                type="text"
+                class="form-control"
+                id="usuario"
+                formControlName="usuario"
+                placeholder="Nombre del usuario"
+              />
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label for="servicioFacturado">Servicio Facturado</label>
+              <input
+                type="text"
+                class="form-control"
+                id="servicioFacturado"
+                formControlName="servicioFacturado"
+                placeholder="Tipo de servicio"
+              />
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label for="estadoSelectModal">Estado *</label>
+              <select
+                id="estadoSelectModal"
+                class="form-control select2-modal"
+                formControlName="estado"
+              >
+                <option value="PENDIENTE">Pendiente</option>
+                <option value="APROBADA">Aprobada</option>
+                <option value="RECHAZADA">Rechazada</option>
+              </select>
+            </div>
+
+            <div class="col-md-12 mb-3">
+              <label for="observacion">Observación</label>
+              <textarea
+                class="form-control"
+                id="observacion"
+                formControlName="observacion"
+                rows="3"
+                placeholder="Observaciones adicionales"
+              ></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          <i class="fas fa-times mr-1"></i>Cancelar
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="guardarTransferencia()"
+          [disabled]="transferenciaForm.invalid"
+        >
+          <i class="fas fa-check mr-1"></i>Aceptar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="eliminarModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="eliminarModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title" id="eliminarModalLabel">
+          <i class="fas fa-exclamation-triangle mr-2"></i>Confirmar Eliminación
+        </h5>
+        <button
+          type="button"
+          class="close text-white"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="mb-0">
+          ¿Está seguro de eliminar la transferencia
+          <strong>{{ transferenciaAEliminar?.numeroPapeleta }}</strong
+          >?
+        </p>
+        <p class="text-muted mb-0 mt-2">
+          <small>Esta acción no se puede deshacer.</small>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          <i class="fas fa-times mr-1"></i>Cancelar
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger"
+          (click)="eliminarTransferencia()"
+        >
+          <i class="fas fa-trash mr-1"></i>Eliminar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

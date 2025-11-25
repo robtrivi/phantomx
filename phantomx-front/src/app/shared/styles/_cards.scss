@@ -1,0 +1,31 @@
+@import "./variables";
+
+@mixin card-elevated {
+  border: none;
+  box-shadow: $shadow-md;
+  border-radius: $border-radius-md;
+  background-color: $light-card-bg;
+}
+
+@mixin card-header-primary {
+  background-color: $color-primary;
+  color: white;
+  font-weight: 600;
+  padding: $spacing-md $spacing-lg;
+  border-radius: $border-radius-md $border-radius-md 0 0;
+}
+
+.card-elevated {
+  @include card-elevated;
+}
+
+.card-header-primary {
+  @include card-header-primary;
+}
+
+:host-context(.theme-dark) {
+  .card-elevated {
+    background: $dark-card-bg;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+}

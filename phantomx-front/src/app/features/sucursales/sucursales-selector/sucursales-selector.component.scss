@@ -1,0 +1,133 @@
+@import '../../../shared/styles/variables';
+@import '../../../shared/styles/mixins';
+
+.sucursales-container {
+  min-height: 100vh;
+  padding: 60px $spacing-lg;
+  background: linear-gradient(135deg, #dbeafe 0%, #93c5fd 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.sucursales-header {
+  width: 100%;
+  margin-bottom: $spacing-xl + 10px;
+
+  h2 {
+    font-size: 32px;
+    font-weight: 700;
+    color: $light-text;
+    margin-bottom: 0;
+  }
+}
+
+.sucursales-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 280px));
+  gap: $spacing-xl;
+  justify-content: center;
+  align-items: center;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.sucursal-card {
+  @include card-base;
+  padding: $spacing-xl $spacing-lg;
+  text-align: center;
+  cursor: pointer;
+  height: 100%;
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    
+    .card-icon i {
+      color: white;
+    }
+
+    .card-title,
+    .card-text {
+      color: white;
+    }
+  }
+
+  .card-icon {
+    font-size: 48px;
+    margin-bottom: $spacing-lg;
+
+    i {
+      color: #667eea;
+      transition: color $transition-normal;
+    }
+  }
+
+  .card-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: $light-text;
+    margin-bottom: $spacing-sm;
+    transition: color $transition-normal;
+  }
+
+  .card-text {
+    font-size: 14px;
+    color: $light-text-muted;
+    margin: 0;
+    transition: color $transition-normal;
+  }
+}
+
+:host-context(.theme-dark) {
+  .sucursales-container {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+  }
+
+  .sucursales-header h2 {
+    color: $dark-text;
+  }
+
+  .sucursal-card {
+    background: $dark-card-bg;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+
+    .card-title {
+      color: $dark-text;
+    }
+
+    .card-text {
+      color: $dark-text-muted;
+    }
+
+    &:hover {
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .sucursales-container {
+    padding: $spacing-xl + 10px $spacing-lg;
+  }
+
+  .sucursales-header h2 {
+    font-size: 24px;
+  }
+
+  .sucursales-grid {
+    grid-template-columns: repeat(auto-fit, minmin(200px, 1fr));
+    gap: $spacing-lg;
+  }
+
+  .sucursal-card {
+    padding: $spacing-lg $spacing-md;
+
+    .card-icon {
+      font-size: 36px;
+    }
+  }
+}

@@ -1,0 +1,197 @@
+@import '../../styles/variables';
+
+.theme-toggle {
+  display: inline-block;
+  
+  &--small {
+    font-size: 0.875rem;
+    
+    i {
+      font-size: 0.875rem;
+    }
+    
+    .btn {
+      padding: 0.25rem 0.5rem;
+      font-size: 0.875rem;
+    }
+  }
+  
+  &--medium {
+    font-size: 1rem;
+    
+    i {
+      font-size: 1rem;
+    }
+  }
+  
+  &--large {
+    font-size: 1.25rem;
+    
+    i {
+      font-size: 1.25rem;
+    }
+    
+    .btn {
+      padding: 0.5rem 1rem;
+      font-size: 1.125rem;
+    }
+  }
+
+  &--switch {
+    .custom-control-label {
+      cursor: pointer;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      
+      i {
+        margin-right: $spacing-xs;
+        transition: transform $transition-fast;
+      }
+      
+      .theme-label {
+        margin-left: $spacing-xs;
+      }
+      
+      &:hover i {
+        transform: scale(1.1);
+      }
+    }
+  }
+  
+  &--button {
+    .btn-theme-toggle {
+      display: flex;
+      align-items: center;
+      gap: $spacing-xs;
+      border: 1px solid transparent;
+      border-radius: 0.25rem;
+      transition: all $transition-fast;
+      
+      i {
+        transition: transform $transition-fast;
+      }
+      
+      &:hover {
+        transform: translateY(-1px);
+        
+        i {
+          transform: scale(1.1);
+        }
+      }
+      
+      &:active {
+        transform: translateY(0);
+      }
+    }
+  }
+  
+  &--icon {
+    .btn-icon-only {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.75rem;
+      height: 2.75rem;
+      padding: 0;
+      border: 2px solid transparent;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      transition: all $transition-fast;
+      backdrop-filter: blur(10px);
+      cursor: pointer;
+      
+      i {
+        font-size: 1.25rem;
+        transition: all $transition-fast;
+        color: inherit;
+      }
+      
+      &:hover {
+        background: rgba(255, 255, 255, 0.2);
+        border-color: rgba(255, 255, 255, 0.3);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        
+        i {
+          transform: rotate(20deg) scale(1.15);
+        }
+      }
+      
+      &:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      &:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.3);
+      }
+    }
+  }
+}
+
+body.theme-light {
+  .theme-toggle {
+    .btn-theme-toggle {
+      color: $light-text;
+      
+      &:hover {
+        background: rgba(0, 0, 0, 0.05);
+      }
+    }
+
+    .btn-icon-only {
+      color: #f59e0b;
+      background: rgba(245, 158, 11, 0.1);
+      
+      &:hover {
+        background: rgba(245, 158, 11, 0.2);
+        border-color: rgba(245, 158, 11, 0.3);
+      }
+
+      &:focus {
+        box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.3);
+      }
+    }
+    
+    .custom-control-label {
+      color: $light-text;
+    }
+  }
+}
+
+body.theme-dark {
+  .theme-toggle {
+    .btn-theme-toggle {
+      color: $dark-text;
+      
+      &:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+    }
+
+    .btn-icon-only {
+      color: #60a5fa;
+      background: rgba(96, 165, 250, 0.15);
+      
+      &:hover {
+        background: rgba(96, 165, 250, 0.25);
+        border-color: rgba(96, 165, 250, 0.4);
+      }
+
+      &:focus {
+        box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.3);
+      }
+    }
+    
+    .custom-control-label {
+      color: $dark-text;
+    }
+    
+    .custom-control-input:checked ~ .custom-control-label::before {
+      background-color: $color-primary;
+      border-color: $color-primary;
+    }
+  }
+}

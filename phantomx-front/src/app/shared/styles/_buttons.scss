@@ -1,0 +1,42 @@
+@import "./variables";
+
+.btn-primary {
+  background-color: #667eea;
+  border-color: #667eea;
+
+  &:hover {
+    background-color: #5568d3;
+    border-color: #5568d3;
+  }
+}
+
+.btn-success {
+  background-color: $color-success;
+  border-color: $color-success;
+
+  &:hover {
+    background-color: #059669;
+    border-color: #047857;
+  }
+}
+
+.filtros-botones {
+  display: flex;
+  justify-content: flex-end;
+  gap: $spacing-sm;
+  flex-wrap: wrap;
+
+  @media (max-width: 768px) {
+    justify-content: center;
+  }
+
+  .btn {
+    min-width: 120px;
+
+    @media (max-width: 576px) {
+      min-width: 100px;
+      font-size: 13px;
+      padding: 8px 12px;
+    }
+  }
+}

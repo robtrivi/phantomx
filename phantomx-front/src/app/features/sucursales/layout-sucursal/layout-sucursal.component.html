@@ -1,0 +1,43 @@
+<div class="sucursal-layout">
+  <div class="franja-azul"></div>
+
+  <div class="sucursal-info">
+    <div class="container">
+      <div class="sucursal-title">
+        <i class="fas fa-store-alt"></i>
+        <h2>{{ nombreSucursal }}</h2>
+      </div>
+    </div>
+  </div>
+
+  <nav class="submenu-horizontal">
+    <div class="container-fluid">
+      <div *ngIf="cargando" class="text-center py-3">
+        <span class="spinner-border spinner-border-sm mr-2"></span>
+        Cargando opciones...
+      </div>
+      <div class="submenu-wrapper" *ngIf="!cargando">
+        <ul class="nav nav-tabs">
+          <li class="nav-item" *ngFor="let item of menuItems">
+            <a 
+              class="nav-link" 
+              [class.active]="item.esActual"
+              [class.disabled]="!item.habilitado"
+              [class.menu-deshabilitado]="!item.habilitado"
+              (click)="onMenuClick(item)"
+              [title]="!item.habilitado ? 'No disponible en este piloto' : ''">
+              {{ item.nombre }}
+              <span *ngIf="!item.habilitado" class="badge badge-secondary ml-2">Próximamente</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="contenido-principal">
+    <div class="container-fluid">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div>

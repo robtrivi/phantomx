@@ -1,0 +1,33 @@
+@import "./variables";
+
+.estadisticas-header {
+  background-color: $color-primary;
+  color: white;
+  font-weight: 600;
+  padding: $spacing-md $spacing-lg;
+  border-radius: $border-radius-md $border-radius-md 0 0;
+}
+
+.estadistica-item {
+  padding: $spacing-md;
+  border-radius: $border-radius-md;
+  transition: all $transition-normal;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  h4,
+  h5 {
+    margin-bottom: $spacing-xs;
+    font-weight: 700;
+  }
+
+  small {
+    display: block;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+}
